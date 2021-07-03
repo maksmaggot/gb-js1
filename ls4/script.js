@@ -36,7 +36,7 @@ function parseName(number) {
     return numberObject;
 }
 
-console.log()
+console.log(parseName(476));
 
 /* 2.Продолжить работу с интернет - магазином:
 2.1.В прошлом домашнем задании вы реализовали корзину на базе массивов.Какими объектами можно заменить их элементы ?
@@ -50,10 +50,11 @@ class ProductsBasket {
     }
 
     countPrice() {
-        totalPrice = 0;
-        this.items.array.forEach(function (element) {
+        let totalPrice = 0;
+        this.items.forEach(function (element) {
             totalPrice += element.price
         });
+        return totalPrice;
     }
 }
 
@@ -72,11 +73,11 @@ let basket = new ProductsBasket([
     new Product('ProductName', 10),
     new Product('ProductName', 10),
     new Product('ProductName', 10),
-])
+]);
 
-console.log(basket.countPrice())
+console.log(basket.countPrice());
 
-3. * Подумать над глобальными сущностями.К примеру,
+/* 3. * Подумать над глобальными сущностями.К примеру,
     сущность «Продукт» в интернет - магазине актуальна не только для корзины,
         но и для каталога.Стремиться нужно к тому, чтобы объект «Продукт» имел единую структуру для различных модулей сайта,
-            но в разных местах давал возможность вызывать разные методы.
+            но в разных местах давал возможность вызывать разные методы. */
