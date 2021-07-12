@@ -1,8 +1,3 @@
-// Продолжаем реализовывать модуль корзины:
-// Добавлять в объект корзины выбранные товары по клику на кнопке «Купить» без перезагрузки страницы;
-// Привязать к событию покупки товара пересчет корзины и обновление ее внешнего вида.
-
-
 class ProductsBasket {
 
     constructor(items) {
@@ -24,6 +19,16 @@ class ProductsBasket {
 
         return `«В корзине: ${this.items.length} товаров на сумму ${this.countPrice()} рублей»`;
     }
+
+    renderBasketPrice() {
+        let card = document.getElementById('product-card-price');
+        const cardPrice = document.createElement('p');
+        card.innerHTML = this.renderPrice();
+    }
+
+    addProduct() {
+        this.items.push(new Product('product name', getRandomIntInclusive(1, 15)));
+    }
 }
 
 class Product {
@@ -33,31 +38,22 @@ class Product {
     }
 }
 
-class Presenter {
-    renderBasketPrice(basket) {
-        let card = document.getElementById('product-card-price');
-        const cardPrice = document.createElement('p');
-        cardPrice.textContent = basket.renderPrice();
-        card.appendChild(cardPrice);
-    }
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
 }
 
-let presenter = new Presenter();
-let emptyBasket = new ProductsBasket([]);
+let basket = new ProductsBasket([]);
+
 document.addEventListener('DOMContentLoaded', function () {
-    return presenter.renderBasketPrice(emptyBasket);
+    let buttons = document.querySelectorAll(".add_product");
+    for (let button of buttons) {
+        button.addEventListener("click", function () {
+            basket.addProduct();
+            basket.renderBasketPrice();
+        })
+    }
+    return basket.renderBasketPrice();
 });
 
-
-let basket = new ProductsBasket([
-    new Product('ProductName', 10),
-    new Product('ProductName', 10),
-    new Product('ProductName', 10),
-    new Product('ProductName', 10),
-    new Product('ProductName', 10),
-]);
-
-//document.addEventListener('DOMContentLoaded', presenter.renderBasketPrice(basket));
-document.addEventListener('DOMContentLoaded', function () {
-    return presenter.renderBasketPrice(basket);
-});
